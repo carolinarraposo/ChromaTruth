@@ -2,9 +2,11 @@
 
 # ChromaTruth : Deteção de Deepfakes através de Inconsistências na Reconstrução Cromática
 
-Projeto Final de Investigação realizado no âmbito da disciplina de **Redes Neuronais e Aprendizagem Profunda 2025/2026**  
 
-Realizado por **Carolina Raposo**
+Projeto desenvolvido por **Carolina Raposo**  
+Universidade da Beira Interior — Inteligência Artificial e Ciência de Dados  
+Disciplina: Redes Neuronais e Aprendizagem Profunda (2025/2026)
+
 
 ---
 ## Introdução
@@ -17,6 +19,7 @@ O método utiliza:
 - **Mapas de erro e XAI** para identificar regiões manipuladas;
 - **ROC/AUC** para avaliar o desempenho do detetor.
 
+As imagens reais utilizadas provêm do dataset CelebA-HQ, amplamente utilizado em investigação de visão computacional.
 
 --- 
 ##  Estrutura do Projeto
@@ -29,11 +32,7 @@ ChromaTruth/
 │   ├── real/                         # Imagens reais (rostos)
 │   └── fake/                         # Deepfakes gerados (Fase 1)
 │                  
-├── src/
-│   ├── deepfakes.py                  # Geração de deepfakes (adversário)
-│   ├── modelo.py                     # Criação e treino do modelo (UNet)
-│   ├── xai.py                        # Deteção e Explicabilidade (XAI)
-│   └── main.py
+├── ChromaTruth.ipynb                 # Notebook com toda a implementação
 │
 ├── models/
 │       ├── unet_chroma_truth.pth     # pesos treinados da Unet
@@ -48,46 +47,47 @@ ChromaTruth/
 
 ## Como utilizar
 
-### Clonar projeto
+### Opção 1: Abrir diretamente no Google Colab
+
+Clique no botão abaixo para abrir o notebook no Colab:
+
+[![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/10xpJ3Qx8e-2f3ermHExFmcoR7dVirtmr?usp=sharing)
+
+
+### Opção 2: Clonar projeto
 ```bash
 git clone https://github.com/carolinarraposo/ChromaTruth.git
 cd ChromaTruth
 ```
 
-### Instalação das dependências
-O projeto foi testado com Python 3.10+
+#### Instalação das dependências
+
+O projeto foi desenvolvido e testado em **Google Colab**.  
+Para execução local:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Execução
+#### Execução
 
-O fluxo completo do projeto é controlado pelo ficheiro main.py.
-Cada fase pode ser ativada ou desativada diretamente no código.
+Para executar o projeto, basta abrir o ficheiro ChromaTruth.ipynb e executar as células sequencialmente.
 
-Para correr o projeto:
+O notebook contém:
 
-```bash
-python src/main.py
-```
-O script executa apenas as fases que estiverem marcadas como True:
-
-```python
-RUN_DEEPFAKES = False       # Fase 1 — Geração de deepfakes
-PREVIEW_DEEPFAKES = False   # Pré-visualização das máscaras e fakes
-RUN_TRAINING = False        # Fase 2 — Treino da UNet
-RUN_XAI = False             # Fase 3 — Deteção + XAI + ROC
-```
+- Fase 1 — Geração de deepfakes
+- Fase 2 — Treino da UNet
+- Fase 3 — Deteção, XAI, ROC/AUC e geração de heatmaps
 
 ### Resultados 
 
 Após a execução, estes são os resultados guardados automaticamente nas pastas ``models`` e ``outputs``:
 
-- ``unet_chroma_truth.pth``    — parâmetros treinados da rede UNet
-- ``preview_{idx}.png``        — exemplos de máscaras e fakes
-- ``learning_curve.png``       — evolução da loss durante o treino
-- ``roc_curve.png``            — curva ROC/AUC
-- ``heatmaps e overlays``      — explicabilidade das regiões manipuladas
+- ``unet_chroma_truth.pth``   — parâmetros treinados da rede UNet
+- ``preview_{idx}.png``       — exemplos de máscaras e fakes
+- ``learning_curve.png``      — evolução da loss durante o treino
+- ``roc_curve.png``           — curva ROC/AUC
+- ``*_bg.png``                — reconstrução RGB a partir do canal L
+- ``*_overlay.png``           — heatmaps das regiões manipuladas
 
 
