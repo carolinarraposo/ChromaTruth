@@ -4,6 +4,8 @@
 
 Projeto Final de Investigação realizado no âmbito da disciplina de **Redes Neuronais e Aprendizagem Profunda 2025/2026**  
 
+Realizado por **Carolina Raposo**
+
 ---
 ## Introdução
 
