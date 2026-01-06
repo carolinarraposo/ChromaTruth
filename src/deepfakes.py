@@ -114,7 +114,7 @@ def generate_deepfakes(real_dir, fake_dir, num_deepfakes=6000, device=None):
     print("\n[Deepfakes] Concluído.")
 
 
-def preview_deepfakes(real_dir, fake_dir, num_preview=3):
+def preview_deepfakes(real_dir, fake_dir, num_preview=4):
     real_dir = Path(real_dir)
     fake_dir = Path(fake_dir)
 

@@ -11,8 +11,8 @@ FAKE_DIR = "../data/fake"
 
 def main():
     RUN_DEEPFAKES = False
-    PREVIEW_DEEPFAKES = False
-    RUN_TRAINING = True
+    PREVIEW_DEEPFAKES = True
+    RUN_TRAINING = False
     RUN_XAI = True
 
     if RUN_DEEPFAKES:
