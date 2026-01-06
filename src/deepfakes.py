@@ -46,7 +46,7 @@ def create_combined_mask(image):
     return mask.filter(ImageFilter.GaussianBlur(radius=6))
 
 
-def visualize(real, mask, fake, fname):
+def visualize(real, mask, fake, idx):
     plt.figure(figsize=(12, 4))
 
     plt.subplot(1, 3, 1)
@@ -64,7 +64,7 @@ def visualize(real, mask, fake, fname):
     plt.axis("off")
     plt.title("Fake")
 
-    save_path = os.path.join(OUTPUT_DIR, f"preview_{fname}.png")
+    save_path = os.path.join(OUTPUT_DIR, f"preview_{idx}.png")
     plt.savefig(save_path, dpi=150, bbox_inches="tight")
     plt.close()
 
@@ -121,8 +121,9 @@ def preview_deepfakes(real_dir, fake_dir, num_preview=3):
     fake_files = sorted(fake_dir.glob("*"))
     preview = random.sample(fake_files, min(num_preview, len(fake_files)))
 
-    for f in preview:
+    for idx, f in enumerate(preview):
         real = Image.open(real_dir / f.name).convert("RGB")
         fake = Image.open(f).convert("RGB")
         mask = create_combined_mask(real)
-        visualize(real, mask, fake, f.name)
+
+        visualize(real, mask, fake, idx)
