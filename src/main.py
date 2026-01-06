@@ -3,7 +3,6 @@
 from deepfakes import generate_deepfakes, preview_deepfakes
 from modelo import train_model
 from xai import run_xai
-import os
 
 REAL_DIR = "../data/real"
 FAKE_DIR = "../data/fake"

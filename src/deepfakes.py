@@ -9,6 +9,7 @@ from PIL import Image, ImageDraw, ImageChops, ImageFilter
 import matplotlib.pyplot as plt
 import os
 
+
 OUTPUT_DIR = "../outputs/fase1_preview"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 

@@ -22,9 +22,6 @@ os.makedirs(REAL_DIR_OUT, exist_ok=True)
 os.makedirs(FAKE_DIR_OUT, exist_ok=True)
 
 
-# --------------------------------------------------
-# Error maps
-# --------------------------------------------------
 def compute_error_maps(L, ab_real, ab_pred):
     error_map = torch.sqrt(torch.sum((ab_real - ab_pred) ** 2, dim=0)).cpu().numpy()
     norm = (error_map - error_map.min()) / (error_map.max() - error_map.min() + 1e-8)
@@ -43,9 +40,6 @@ def compute_error_maps(L, ab_real, ab_pred):
     return error_map, smooth, bg, overlap
 
 
-# --------------------------------------------------
-# Detector
-# --------------------------------------------------
 class ChromaTruthDetector:
     def __init__(self, model_path=MODEL_SAVE_PATH):
         self.model = UNet().to(DEVICE)
@@ -68,9 +62,6 @@ class ChromaTruthDetector:
         return score, bg, overlap, error_map, smooth
 
 
-# --------------------------------------------------
-# Evaluation + saving maps
-# --------------------------------------------------
 def evaluate_and_save(real_dir, fake_dir, detector):
     scores, labels, names = [], [], []
 
@@ -94,9 +85,6 @@ def evaluate_and_save(real_dir, fake_dir, detector):
     return np.array(scores), np.array(labels), names
 
 
-# --------------------------------------------------
-# ROC
-# --------------------------------------------------
 def compute_roc(scores, labels):
     fpr, tpr, thr = roc_curve(labels, scores)
     auc_val = auc(fpr, tpr)
@@ -104,9 +92,6 @@ def compute_roc(scores, labels):
     return fpr, tpr, thr, auc_val, idx
 
 
-# --------------------------------------------------
-# Main XAI runner
-# --------------------------------------------------
 def run_xai(real_dir, fake_dir):
     detector = ChromaTruthDetector()
 
@@ -127,7 +112,6 @@ def run_xai(real_dir, fake_dir):
     plt.savefig(os.path.join(OUTPUT_DIR, "roc_curve.png"), dpi=150)
     plt.close()
 
-    # Save CSV
     with open(os.path.join(OUTPUT_DIR, "scores.csv"), "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["image", "label", "score"])

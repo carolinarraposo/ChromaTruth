@@ -11,6 +11,7 @@ from skimage import color
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
+
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 IMG_SIZE = 256
 MODEL_SAVE_PATH = Path("../models/unet_chroma_truth.pth")
